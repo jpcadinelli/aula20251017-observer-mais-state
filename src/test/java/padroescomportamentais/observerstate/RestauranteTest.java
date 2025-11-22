@@ -11,7 +11,7 @@ class RestauranteTest {
 
     @Test
     void deveNotificarUmRestauranteComPedidoInicial() {
-        PlataformaIfood plataforma = new PlataformaIfood();
+        PlataformaIfood plataforma = PlataformaIfood.getInstance();
         Restaurante restaurante = new Restaurante("Restaurante Sabor");
         restaurante.inscrever(plataforma);
 
@@ -23,7 +23,7 @@ class RestauranteTest {
 
     @Test
     void deveNotificarRestaurantesComPedidosComEstadoAvancado() {
-        PlataformaIfood plataforma = new PlataformaIfood();
+        PlataformaIfood plataforma = PlataformaIfood.getInstance();
         Restaurante r1 = new Restaurante("Restaurante Sabor");
         Restaurante r2 = new Restaurante("Hamburgueria Legal");
         r1.inscrever(plataforma);
@@ -44,37 +44,13 @@ class RestauranteTest {
 
     @Test
     void naoDeveNotificarRestauranteNaoInscrito() {
-        PlataformaIfood plataforma = new PlataformaIfood();
+        PlataformaIfood plataforma = PlataformaIfood.getInstance();
         Restaurante restaurante = new Restaurante("Restaurante Sabor");
 
         Pedido pedido = new Pedido("Salada Caesar", 40.0);
         plataforma.lancarPedido(pedido);
 
         assertEquals(null, restaurante.getUltimaNotificacao());
-    }
-
-    @Test
-    void deveNotificarRestaurantesEmPlataformasDiferentes() {
-        PlataformaIfood plataformaA = new PlataformaIfood();
-        PlataformaIfood plataformaB = new PlataformaIfood();
-
-        Restaurante r1 = new Restaurante("Restaurante Sabor");
-        Restaurante r2 = new Restaurante("Hamburgueria Legal");
-
-        r1.inscrever(plataformaA);
-        r2.inscrever(plataformaB);
-
-        Pedido pedidoA = new Pedido("Pizza Marguerita", 40.0);
-        Pedido pedidoB = new Pedido("Sushi Especial", 40.0);
-
-        plataformaA.lancarPedido(pedidoA);
-        plataformaB.lancarPedido(pedidoB);
-
-        assertEquals("Restaurante Sabor, novo pedido recebido: Pizza Marguerita - Status: Pedido Recebido", r1.getUltimaNotificacao());
-        assertEquals("Hamburgueria Legal, novo pedido recebido: Sushi Especial - Status: Pedido Recebido", r2.getUltimaNotificacao());
-
-        assert(!r1.getUltimaNotificacao().contains("Sushi Especial"));
-        assert(!r2.getUltimaNotificacao().contains("Pizza Marguerita"));
     }
 
     @Test

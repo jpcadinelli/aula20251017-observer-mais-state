@@ -11,7 +11,7 @@ class ClienteTest {
 
     @Test
     void deveNotificarUmClienteComPedidoInicial() {
-        PlataformaIfood plataforma = new PlataformaIfood();
+        PlataformaIfood plataforma = PlataformaIfood.getInstance();
         Cliente cliente = new Cliente("João Pedro");
         cliente.inscrever(plataforma);
 
@@ -23,7 +23,7 @@ class ClienteTest {
 
     @Test
     void deveNotificarClientesComPedidosComEstadoAvancado() {
-        PlataformaIfood plataforma = new PlataformaIfood();
+        PlataformaIfood plataforma = PlataformaIfood.getInstance();
         Cliente r1 = new Cliente("João Pedro");
         Cliente r2 = new Cliente("Marco Antônio");
         r1.inscrever(plataforma);
@@ -44,37 +44,13 @@ class ClienteTest {
 
     @Test
     void naoDeveNotificarClienteNaoInscrito() {
-        PlataformaIfood plataforma = new PlataformaIfood();
+        PlataformaIfood plataforma = PlataformaIfood.getInstance();
         Cliente cliente = new Cliente("João Pedro");
 
         Pedido pedido = new Pedido("Salada Caesar", 40.0);
         plataforma.lancarPedido(pedido);
 
         assertEquals(null, cliente.getUltimaNotificacao());
-    }
-
-    @Test
-    void deveNotificarClientesEmPlataformasDiferentes() {
-        PlataformaIfood plataformaA = new PlataformaIfood();
-        PlataformaIfood plataformaB = new PlataformaIfood();
-
-        Cliente r1 = new Cliente("João Pedro");
-        Cliente r2 = new Cliente("Marco Antônio");
-
-        r1.inscrever(plataformaA);
-        r2.inscrever(plataformaB);
-
-        Pedido pedidoA = new Pedido("Pizza Marguerita", 40.0);
-        Pedido pedidoB = new Pedido("Sushi Especial", 40.0);
-
-        plataformaA.lancarPedido(pedidoA);
-        plataformaB.lancarPedido(pedidoB);
-
-        assertEquals("João Pedro, novo pedido criado: Pizza Marguerita - Status: Pedido Recebido", r1.getUltimaNotificacao());
-        assertEquals("Marco Antônio, novo pedido criado: Sushi Especial - Status: Pedido Recebido", r2.getUltimaNotificacao());
-
-        assert(!r1.getUltimaNotificacao().contains("Sushi Especial"));
-        assert(!r2.getUltimaNotificacao().contains("Pizza Marguerita"));
     }
 
     @Test
