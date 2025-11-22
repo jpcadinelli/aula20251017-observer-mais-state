@@ -7,7 +7,7 @@ import padroescomportamentais.observerstate.observer.Pedido;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RestauranteTest2 {
+class RestauranteTest {
 
     @Test
     void deveNotificarUmRestauranteComPedidoInicial() {
