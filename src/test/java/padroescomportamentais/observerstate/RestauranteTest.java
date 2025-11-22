@@ -15,7 +15,7 @@ class RestauranteTest {
         Restaurante restaurante = new Restaurante("Restaurante Sabor");
         restaurante.inscrever(plataforma);
 
-        Pedido pedido = new Pedido("Pizza Calabresa");
+        Pedido pedido = new Pedido("Pizza Calabresa", 40.0);
         plataforma.lancarPedido(pedido);
 
         assertEquals("Restaurante Sabor, novo pedido recebido: Pizza Calabresa - Status: Pedido Recebido", restaurante.getUltimaNotificacao());
@@ -29,7 +29,7 @@ class RestauranteTest {
         r1.inscrever(plataforma);
         r2.inscrever(plataforma);
 
-        Pedido pedido = new Pedido("Hambúrguer Artesanal");
+        Pedido pedido = new Pedido("Hambúrguer Artesanal", 40.0);
         plataforma.lancarPedido(pedido);
 
         assertEquals("Restaurante Sabor, novo pedido recebido: Hambúrguer Artesanal - Status: Pedido Recebido", r1.getUltimaNotificacao());
@@ -47,7 +47,7 @@ class RestauranteTest {
         PlataformaIfood plataforma = new PlataformaIfood();
         Restaurante restaurante = new Restaurante("Restaurante Sabor");
 
-        Pedido pedido = new Pedido("Salada Caesar");
+        Pedido pedido = new Pedido("Salada Caesar", 40.0);
         plataforma.lancarPedido(pedido);
 
         assertEquals(null, restaurante.getUltimaNotificacao());
@@ -64,8 +64,8 @@ class RestauranteTest {
         r1.inscrever(plataformaA);
         r2.inscrever(plataformaB);
 
-        Pedido pedidoA = new Pedido("Pizza Marguerita");
-        Pedido pedidoB = new Pedido("Sushi Especial");
+        Pedido pedidoA = new Pedido("Pizza Marguerita", 40.0);
+        Pedido pedidoB = new Pedido("Sushi Especial", 40.0);
 
         plataformaA.lancarPedido(pedidoA);
         plataformaB.lancarPedido(pedidoB);
@@ -79,7 +79,7 @@ class RestauranteTest {
 
     @Test
     void deveAvancarEstadoAteEntregue() {
-        Pedido pedido = new Pedido("Lasanha Bolonhesa");
+        Pedido pedido = new Pedido("Lasanha Bolonhesa", 40.0);
         assertEquals("Pedido Recebido", pedido.getStatus());
         pedido.avancarEstado();
         assertEquals("Pedido em Preparação", pedido.getStatus());
